@@ -11,6 +11,17 @@ ERROR_PATTERNS = {
 }
 
 
+SEVERITY_MAP = {
+    "OUT_OF_MEMORY": "HIGH",
+    "FILE_NOT_FOUND": "HIGH",
+    "PERMISSION_ERROR": "HIGH",
+    "CONNECTION_ERROR": "HIGH",
+    "TIMEOUT": "MEDIUM",
+    "SPARK_ANALYSIS_ERROR": "MEDIUM",
+    "UNKNOWN": "UNKNOWN",
+}
+
+
 def read_logs(file_path: str) -> str:
     """Read the complete log file and return its content."""
 
@@ -43,9 +54,31 @@ def extract_stage(error_lines: list[str]) -> str | None:
     """Extract the failed Spark stage from error lines."""
 
     for line in error_lines:
-        match = re.search(r"(Stage\s+\d+)\s+failed", line, re.IGNORECASE)
+        match = re.search(
+            r"(Stage\s+\d+)\s+failed",
+            line,
+            re.IGNORECASE,
+        )
 
         if match:
             return match.group(1)
 
     return None
+
+
+def determine_severity(error_type: str) -> str:
+    """Determine severity based on the error type."""
+
+    return SEVERITY_MAP.get(error_type, "UNKNOWN")
+
+
+def extract_error_message(error_lines: list[str]) -> str:
+    """Combine relevant error lines into a single error message."""
+
+    if not error_lines:
+        return ""
+
+    return " - ".join(
+        line.split("ERROR", 1)[-1].strip()
+        for line in error_lines
+    )

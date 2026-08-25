@@ -1,0 +1,7 @@
+{
+    "status": "FAILED",
+    "error_type": "OUT_OF_MEMORY",
+    "stage": "Stage 4",
+    "severity": "HIGH",
+    "error_message": "Stage 4 failed - Executor lost - OutOfMemoryError - Job failed"
+}
