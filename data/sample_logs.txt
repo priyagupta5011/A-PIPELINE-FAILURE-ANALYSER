@@ -1,0 +1,8 @@
+2026-08-25 10:20:01 INFO Starting customer pipeline
+2026-08-25 10:20:05 INFO Reading customer data from S3
+2026-08-25 10:21:15 INFO Processing customer records
+2026-08-25 10:22:10 INFO Starting Stage 4
+2026-08-25 10:22:31 ERROR Stage 4 failed
+2026-08-25 10:22:32 ERROR Executor lost
+2026-08-25 10:22:32 ERROR OutOfMemoryError
+2026-08-25 10:22:33 ERROR Job failed
