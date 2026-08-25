@@ -1,0 +1,5 @@
+2026-08-25 11:10:01 INFO Starting sales pipeline
+2026-08-25 11:10:05 INFO Reading input data
+2026-08-25 11:10:10 ERROR Stage 2 failed
+2026-08-25 11:10:10 ERROR FileNotFoundException
+2026-08-25 11:10:11 ERROR Job failed

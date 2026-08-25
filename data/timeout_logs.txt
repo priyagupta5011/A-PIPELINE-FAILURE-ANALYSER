@@ -1,0 +1,5 @@
+2026-08-25 12:15:01 INFO Starting transaction pipeline
+2026-08-25 12:15:05 INFO Connecting to source database
+2026-08-25 12:16:10 ERROR Stage 1 failed
+2026-08-25 12:16:10 ERROR TimeoutException
+2026-08-25 12:16:11 ERROR Job failed

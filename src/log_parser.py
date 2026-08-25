@@ -35,7 +35,7 @@ def extract_error_lines(logs: str) -> list[str]:
     return [
         line
         for line in logs.splitlines()
-        if "ERROR" in line
+        if "ERROR" in line.upper()
     ]
 
 
