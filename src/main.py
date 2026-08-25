@@ -1,4 +1,5 @@
 import json
+import sys
 
 from log_parser import (
     read_logs,
@@ -10,12 +11,13 @@ from log_parser import (
 )
 
 
-LOG_FILE = "data/sample_logs.txt"
 OUTPUT_FILE = "output/failure_analysis.json"
 
 
-def main():
-    logs = read_logs(LOG_FILE)
+def analyze_pipeline(log_file: str) -> dict:
+    """Analyze a pipeline log file and return structured failure information."""
+
+    logs = read_logs(log_file)
 
     error_lines = extract_error_lines(logs)
 
@@ -24,7 +26,7 @@ def main():
     severity = determine_severity(error_type)
     error_message = extract_error_message(error_lines)
 
-    analysis = {
+    return {
         "status": "FAILED",
         "error_type": error_type,
         "stage": stage,
@@ -32,13 +34,23 @@ def main():
         "error_message": error_message,
     }
 
+
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: python src/main.py <log_file>")
+        sys.exit(1)
+
+    log_file = sys.argv[1]
+
+    try:
+        analysis = analyze_pipeline(log_file)
+    except FileNotFoundError:
+        print(f"Error: Log file not found: {log_file}")
+        sys.exit(1)
+
     with open(OUTPUT_FILE, "w", encoding="utf-8") as file:
         json.dump(analysis, file, indent=4)
 
     print("Pipeline Failure Analysis")
     print("-------------------------")
     print(json.dumps(analysis, indent=4))
-
-
-if __name__ == "__main__":
-    main()
